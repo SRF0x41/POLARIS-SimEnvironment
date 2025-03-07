@@ -1,7 +1,7 @@
 import socket
 
 HOST = '127.0.0.1'  # Localhost (only accessible from this machine)
-PORT = 12345        # Port number (can be any free port)
+PORT = 12345      # Port number (can be any free port)
 
 # Create a TCP socket
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
