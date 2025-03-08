@@ -1,10 +1,10 @@
 class Orb:
-    def __init__(self, starting_position):
-        self.width, self.height = 50, 50
-        self.color = (0, 100, 255)
+    def __init__(self, starting_position, radius, color):
+        #self.width, self.height = 50, 50
+        self.color = color
         self.speed = 5
         self.x, self.y = starting_position
-        self.orb_radius = 20
+        self.orb_radius = radius
     
     # getters
     def getX(self):
