@@ -46,7 +46,14 @@ def main():
     sock_comm = SocketComm('localhost',12345)
     
     while True:
-        sock_comm.recieveDataPrint();
+        data = sock_comm.recieveData()
+        print("recieved data: ",data)
+        
+        print("Sent data ");
+        sock_comm.sendMessage("Message recieved")
+        
+        
+       
     
     
     '''
