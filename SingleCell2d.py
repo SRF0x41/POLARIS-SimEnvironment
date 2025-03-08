@@ -1,14 +1,13 @@
 import pygame
+from Orb import Orb
 
 # Initialize Pygame
 pygame.init()
 
 # Constants
 WIDTH, HEIGHT = 600, 400
-ORB_RADIUS = 20
-SPEED = 5
-WHITE = (255, 255, 255)
-BLUE = (0, 100, 255)
+WHITE = (255, 255, 255) # Background color
+
 
 # Create screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -16,6 +15,8 @@ pygame.display.set_caption("Orb Controller")
 
 # Orb starting position (center of screen)
 x, y = WIDTH // 2, HEIGHT // 2
+
+orb = Orb((x,y))
 
 # Main loop
 running = True
@@ -32,21 +33,22 @@ while running:
 
     # Move orb based on keys
     if keys[pygame.K_LEFT] or keys[pygame.K_a]:   # Move left
-        x -= SPEED
+        orb.changeX(-orb.getSpeed())
     if keys[pygame.K_RIGHT] or keys[pygame.K_d]:  # Move right
-        x += SPEED
+        orb.changeX(orb.getSpeed())
     if keys[pygame.K_UP] or keys[pygame.K_w]:     # Move up
-        y -= SPEED
+       orb.changeY(-orb.getSpeed())
     if keys[pygame.K_DOWN] or keys[pygame.K_s]:   # Move down
-        y += SPEED
+        orb.changeY(orb.getSpeed())
 
     # Keep orb within screen boundaries
-    x = max(ORB_RADIUS, min(WIDTH - ORB_RADIUS, x))
-    y = max(ORB_RADIUS, min(HEIGHT - ORB_RADIUS, y))
+    orb.setX( max(orb.getRadius(), min(WIDTH - orb.getRadius(), orb.getX())))
+    orb.setY(max(orb.getRadius(), min(HEIGHT - orb.getRadius(), orb.getY())))
+    
 
     # Draw background and orb
     screen.fill(WHITE)
-    pygame.draw.circle(screen, BLUE, (x, y), ORB_RADIUS)
+    pygame.draw.circle(screen, orb.getColor(), orb.getPosition(), orb.getRadius())
 
     # Update display
     pygame.display.update()
