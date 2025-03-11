@@ -1,4 +1,5 @@
 import socket
+import json
 
 class SocketComm:
     def __init__(self, host, port):
@@ -36,6 +37,9 @@ class SocketComm:
     def sendMessage(self,message):
          # Send a response
         self.client_socket.sendall(message.encode())
+    
+    def sendJSON(self,message):
+        self.client_socket.sendall(json.dumps(message).encode())
         
     def serializeData(self, obj):
         # Ensure obj is a list

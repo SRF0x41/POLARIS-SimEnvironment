@@ -49,8 +49,9 @@ def main():
         data = sock_comm.recieveData()
         print("recieved data: ",data)
         
-        print("Sent data ");
-        sock_comm.sendMessage("Message recieved")
+        print("Send data")
+        response = {"message": "Message recieved"}
+        sock_comm.sendJSON(response)
         
         
        
