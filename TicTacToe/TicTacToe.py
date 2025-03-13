@@ -50,7 +50,7 @@ def main():
         print("recieved data: ",data)
         
         print("Send data")
-        response = {"message": "Message recieved"}
+        response = {"message": "Message recieved", "data": gameState}
         sock_comm.sendJSON(response)
         
         
