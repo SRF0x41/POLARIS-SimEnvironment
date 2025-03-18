@@ -37,43 +37,75 @@ def detectWin():
     return None
 
 
-    
+# Send to machine translation
+def parseToNum():
+    parsedNumerical = []
+    for val in gameState:
+        if isinstance(val,int):
+            parsedNumerical.append(0)
+        elif val == 'X':
+            parsedNumerical.append(-1)
+        else:
+            parsedNumerical.append(1)
+    return parsedNumerical
+
+def legalMove(move):
+    if not isinstance(gameState[move],int):
+        return False
+    return True
+
+def is_integer(value):
+    try:
+        int(value)
+        return True
+    except ValueError:
+        return False
+
+def validMove(self,userInput):
+    if is_integer(userInput) and legalMove(userInput):
+        return True
+    return False
+        
+
+        
 
 def main():
+    # Socket tooling
     user_input = ""
-    # main input loop
-    
     sock_comm = SocketComm('localhost',12345)
     
-    while True:
-        data = sock_comm.recieveData()
-        print("recieved data: ",data)
-        
-        print("Send data")
-        response = {"message": "Message recieved", "data": gameState}
-        sock_comm.sendJSON(response)
-        
-        
-       
+    # Game tooling
+    win_state = 0 # 0 for ongoing game or draw, -1 human 1 machine
+    running = True;
     
     
-    '''
-    while True:
+    # Main running loop
+    while running:
         drawBoard()
-        user_input = input("Enter a move: ")
-        if user_input == 'q':
-            break
         
-        user_input = int(user_input)
-        updateGameState('X', user_input)
+        # User input
+        user_input = input("Enter a move")
+        while not validMove(user_input):
+            print("Illegal move or invalid input")
+            user_input = input("Enter a move")
+            if user_input == 'q':
+                sock_comm.close_connection()
+                break
         
-        winner = detectWin()
-        if winner != None:
-            drawBoard()
-            print(winner+" wins")
-            break
-            '''
-            
+        user_move = int(user_input)
+        gameState[user_move] = 'X'
+        
+        # JSON send to polaris
+        numerical_gamestate = parseToNum()
+        send_POLARIS = {"Command":"POLARIS_move", "data": numerical_gamestate, "win_state": win_state}
+        sock_comm.sendMessage(send_POLARIS)
+        
+        
+        
+    
+    sock_comm.close_connection()
+    
+    
        
         
         
