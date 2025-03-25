@@ -5,7 +5,10 @@ matplotlib.use('TkAgg')  # Set the interactive backend
 import matplotlib.pyplot as plt
 import random
 
-def main():
+import tkinter as tk
+
+
+def exampleGrowingPlot():
     # Example data for plotting
     x = []
     y = []
@@ -33,6 +36,34 @@ def main():
 
     # Keep the plot open at the end
     plt.show(block=True)
+    
+
+def main():
+    # Create gui
+    root = tk.Tk()
+    root.title("Performance Tracker GUI")
+    
+    # Top text
+    label = tk.Label(root, text="Performance Tracker")
+    label.pack()
+    
+    # Fetch data from polaris
+    input_arr = [1,2,3,4,5]
+    
+    raw_output = [0,0,0,0,0]
+    
+    target_arr = [1,2,3,4,5]
+    
+    # Show input and expected arrays
+    input_array_polaris = tk.Label(root, text=f"Input: {input_arr}")
+    raw_output_polaris = tk.Label(root, text=f"Raw Out: {raw_output}")
+    target_array_polaris = tk.Label(root, text=f"Target: {target_arr}")
+    
+    input_array_polaris.pack()
+    raw_output_polaris.pack()
+    target_array_polaris.pack()
+    
+    root.mainloop()
 
 if __name__ == "__main__":
     main()
